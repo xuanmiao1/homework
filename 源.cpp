@@ -1,33 +1,48 @@
-#include "stdio.h"
-#include "conio.h"
-void main()
+#include<iostream>
+#include<iomanip>
+#include<cmath>
+using namespace std;
+class Tri
 {
-	int day, month, year, sum, leap;
-	printf("\nplease input year,month,day\n");
-	scanf("%d,%d,%d", &year, &month, &day);
-	switch (month) /*先计算某月以前月份的总天数*/
-	{
-	case 1:sum = 0;break;
-	case 2:sum = 31;break;
-	case 3:sum = 59;break;
-	case 4:sum = 90;break;
-	case 5:sum = 120;break;
-	case 6:sum = 151;break;
-	case 7:sum = 181;break;
-	case 8:sum = 212;break;
-	case 9:sum = 243;break;
-	case 10:sum = 273;break;
-	case 11:sum = 304;break;
-	case 12:sum = 334;break;
-	default:printf("data error");break;
-	}
-	sum = sum + day; /*再加上某天的天数*/
-	if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) /*判断是不是闰年*/
-		leap = 1;
-	else
-		leap = 0;
-	if (leap == 1 && month > 2) /*如果是闰年且月份大于2,总天数应该加一天*/
-		sum++;
-	printf("It is the %dth day.", sum);
-	getch();
+public:
+	Tri() { sidea = 0;sideb = 0;sidec = 0; }
+	Tri(double a, double b, double c) { sidea = a;sideb = b;sidec = c; }
+	double operator +(Tri&tri);
+	void dispTri();
+private:
+	double sidea, sideb, sidec;
+	double area();
+};
+double Tri::area()
+{
+	double s;
+	s = (sidea + sideb + sidec) / 2;
+	double S;
+	S = sqrt(s*(s - sidea)*(s - sideb)*(s - sidec));
+	return S;
+}
+double Tri::operator +(Tri&tri)
+{
+	return area() + tri.area();
+}
+void Tri::dispTri()
+{
+	cout << "三角形的三边为：";
+	cout << setfill(' ');
+	cout << setw(2) << sidea << "," << setw(2) << sideb;
+	cout << "," << setw(2) << sidec << endl;
+}
+int main()
+{
+	double a, b, c, i, j, k;
+	cout << "请输入第一个三角形三边：";
+	cin >> a >> b >> c;
+	Tri t1(a, b, c);
+	t1.dispTri();
+	cout << "请输入第二个三角形三边：";
+	cin >> i >> j >> k;
+	Tri t2(i, j, k);
+	t2.dispTri();
+	cout << "两个三角形面积之和为：" << t2 + t1 << endl;
+	return 0;
 }
