@@ -1,57 +1,94 @@
-#include "student.h"
-#include <iostream>
-
-using namespace std;
-
-
-student::student(int id, const char *user_name)
-{
-	cout << "¹¹Ôìº¯Êı±»µ÷ÓÃ" << endl;
-	this->id = id;
-
-	if (user_name != NULL)
-	{
-		int len = strlen(user_name);
-
-		name = new char[len + 1];
-
-		strcpy(name, user_name);
-
+ï»¿public class Student {
+	String name;
+	int age;
+	String degree;
+	public Student() {
 	}
-
-
-
-}
-
-student::student(const student & r)
-{
-	this->id = r.id;
-
-	// this->name = r.name;//Ç³¿½±´<-----Õ»ÉÏ²Ù×÷
-
-	if (r.name != NULL)//Éî¶È¿½±´<---¶ÑÉÏ²Ù×÷
-	{
-		int len = strlen(r.name);
-
-		this->name = new char[len + 1];
-
-		strcpy(this->name, r.name);
+	public Student(String name, int age, String degree) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.degree = degree;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getDegree() {
+		return degree;
+	}
+	public void setDegree(String degree) {
+		this.degree = degree;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	//disPlayä¸ºè¾“å‡ºå‚æ•°çš„æ–¹æ³•ï¼Œéœ€ä¼ å…¥ä¸€ä¸ªStudentå¯¹è±¡ã€‚
+	public void disPlay(Student s) {
+		System.out.println("name:" + s.getName() + ",age:" + s.getAge() + ",degree:" + s.getDegree());
 	}
 }
-
-
-student::~student()
-{
-	cout << "--Îö¹¹º¯Êı±»µ÷ÓÃ--" << endl;
-
-	delete[] name;
+==================================
+//Undergraduate ç±»
+public class Undergraduate extends Student {
+	String specialty;
+	// disPlayä¸ºè¾“å‡ºå‚æ•°çš„æ–¹æ³•ï¼Œéœ€ä¼ å…¥ä¸€ä¸ªUndergraduateå¯¹è±¡ã€‚
+	public void disPlay(Undergraduate u) {
+		System.out.println("name:" + u.getName() + ",age:" + u.getAge() + ",degree:" + u.getDegree() + ",specialty:" + u.getSpecialty());
+	}
+	public String getSpecialty() {
+		return specialty;
+	}
+	public void setSpecialty(String specialty) {
+		this.specialty = specialty;
+	}
 }
-
-void student::display()
-{
-	cout << "Ñ§ºÅid  = " << id << endl;
-
-	cout << "ĞÕÃûname= " << name << endl;
-
-
+========================================
+//Graduate ç±»
+public class Graduate extends Student {
+	String studydirection;
+	public String getStudydirection() {
+		return studydirection;
+	}
+	public void setStudydirection(String studydirection) {
+		this.studydirection = studydirection;
+	}
+	//disPlayä¸ºè¾“å‡ºå‚æ•°çš„æ–¹æ³•ï¼Œéœ€ä¼ å…¥ä¸€ä¸ªGraduateå¯¹è±¡ã€‚
+	public void disPlay(Graduate g) {
+		System.out.println("name:" + g.getName() + ",age:" + g.getAge() + ",degree:" + g.getDegree() + ",studydirection:" + g.getStudydirection());
+	}
 }
+============================================
+//æµ‹è¯•ç±»ï¼ˆåˆ›å»ºå¯¹è±¡ï¼Œè°ƒç”¨æ–¹æ³•ï¼Œè¾“å‡ºå‚æ•°ï¼‰
+public class Test {
+	Student s = new Student();
+	Undergraduate u = new Undergraduate();
+	Graduate g = new Graduate();
+	public void doTest() {
+		//è®¾ç½®3ä¸ªå¯¹è±¡çš„å‚æ•°
+		s.setName("AAA");
+		s.setAge(22);
+		s.setDegree("dazhuan");
+		s.disPlay(s);
+		u.setName("BBB");
+		u.setAge(23);
+		u.setDegree("xueshi");
+		u.setSpecialty("math");
+		u.disPlay(u);
+		g.setName("CCC");
+		g.setAge(24);
+		g.setDegree("yanjiusheng");
+		g.setStudydirection("EC");
+		g.disPlay(g);
+	}
+	public static void main(String[] args) {
+		Test t = new Test();
+		t.doTest();
+	}
+}
+========================== =
