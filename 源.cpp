@@ -1,48 +1,55 @@
-#include<iostream>
-#include<iomanip>
-#include<cmath>
+ï»¿#include<iostream>
+#include<cstring>
 using namespace std;
-class Tri
-{
+//å®šä¹‰Personç±»
+class Person {
 public:
-	Tri() { sidea = 0;sideb = 0;sidec = 0; }
-	Tri(double a, double b, double c) { sidea = a;sideb = b;sidec = c; }
-	double operator +(Tri&tri);
-	void dispTri();
+	friend class Student;
 private:
-	double sidea, sideb, sidec;
-	double area();
+	char name[10];
+	char gender;
+	int age;
 };
-double Tri::area()
+//å®šä¹‰Studentç±»
+class Student {
+public:
+	//å› ä¸ºStudentç±»ä¸­çš„å‡½æ•°è¦ç”¨åˆ°Personä¸­çš„æ•°æ®
+	//æ‰€ä»¥å…ˆåœ¨Studentç±»ä¸­å®šä¹‰ä¸€ä¸ªPersonå¯¹è±¡
+	Person person;
+	Student(char myname[10], int myage, char mygender, char myid[10], char mycname[10], int myscore)
+	{
+		//å°†å­¦ç”Ÿå§“åã€å¹´é¾„ã€æ€§åˆ«èµ‹å€¼ç»™Personå¯¹è±¡ä¸­çš„æˆå‘˜æ•°æ®
+		strcpy(person.name, myname);
+		person.age = myage;
+		person.gender = mygender;
+		//å‰©ä¸‹çš„èµ‹å€¼ç»™Studentç±»ä¸­çš„æˆå‘˜æ•°æ®
+		strcpy(id, myid);
+		strcpy(cname, mycname);
+		score = myscore;
+	};
+	//å®šä¹‰display()å‡½æ•°ï¼Œè¾“å‡ºå­¦ç”Ÿä¿¡æ¯
+	void display() {
+		//è¿™é‡Œæ³¨æ„è¦åŠ "person."è¡¨æ˜æ˜¯è®¿é—®å¦ä¸€ä¸ªç±»ä¸­çš„æˆå‘˜
+		cout << "my name is" << person.name << endl;
+		if (person.gender == 'B')
+			cout << "I am a boy" << endl;
+		else
+			cout << "I am a girl" << endl;
+		cout << "my age is " << person.age << endl;
+		cout << "my id is " << this->id << endl;
+		cout << "my class name is" << this->cname << endl;
+		cout << "my score is " << this->score << endl;
+	}
+private:
+	char id[10];
+	char cname[10];
+	int score;
+};
+
+//æµ‹è¯•éƒ¨åˆ†
+int main(void)
 {
-	double s;
-	s = (sidea + sideb + sidec) / 2;
-	double S;
-	S = sqrt(s*(s - sidea)*(s - sideb)*(s - sidec));
-	return S;
-}
-double Tri::operator +(Tri&tri)
-{
-	return area() + tri.area();
-}
-void Tri::dispTri()
-{
-	cout << "Èı½ÇĞÎµÄÈı±ßÎª£º";
-	cout << setfill(' ');
-	cout << setw(2) << sidea << "," << setw(2) << sideb;
-	cout << "," << setw(2) << sidec << endl;
-}
-int main()
-{
-	double a, b, c, i, j, k;
-	cout << "ÇëÊäÈëµÚÒ»¸öÈı½ÇĞÎÈı±ß£º";
-	cin >> a >> b >> c;
-	Tri t1(a, b, c);
-	t1.dispTri();
-	cout << "ÇëÊäÈëµÚ¶ş¸öÈı½ÇĞÎÈı±ß£º";
-	cin >> i >> j >> k;
-	Tri t2(i, j, k);
-	t2.dispTri();
-	cout << "Á½¸öÈı½ÇĞÎÃæ»ıÖ®ºÍÎª£º" << t2 + t1 << endl;
+	Student A("LiMing", 19, 'B', "10123", "1701", 422);
+	A.display();
 	return 0;
 }
